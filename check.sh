@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 export $(egrep -v '^#' .env | xargs)
 echo "Checking the IP address for $CF_RECORD_NAME"
@@ -8,6 +8,13 @@ lastip=`cat $HOME/.public_ip 2>/dev/null`
 
 echo "Current IP: $ip"
 echo "Last IP: $lastip"
+
+ipv4_pattern="([0-9]{1,3}[\.]){3}[0-9]{1,3}"
+
+if ! [[ $ip =~ $ipv4_pattern ]]; then
+    echo "The current IPv4 address is invalid."
+    exit 1
+fi
 
 if [ "$ip" != "$lastip" ]; then
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export $(egrep -v '^#' .env | xargs)
 echo "Checking the IP address for $CF_RECORD_NAME"
